@@ -2,16 +2,15 @@
 
 /////////////// DOM selector////////////////////////
 const btnCheck = document.querySelector('.check');
-const displayMessage = document.querySelector('.message').textContent;
+const displayMessage = document.querySelector('.message');
 
-const displayNumber = document.querySelector('.number').textContent;
+const displayNumber = document.querySelector('.number');
 
-const bodyBackgroundColor = document.querySelector('body').style
-  .backgroundColor;
+const body = document.querySelector('body');
 
-const displayHighscore = document.querySelector('.highscore').textContent;
+const displayHighscore = document.querySelector('.highscore');
 
-const displayScore = document.querySelector('.score').textContent;
+const displayScore = document.querySelector('.score');
 
 /////////////// Number, Scores ////////////////////////////
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
@@ -27,29 +26,30 @@ function gameRule() {
 
     /// When there is no input
     if (!guess) {
-      displayMessage = '👹 No number!';
+      displayMessage.textContent = '👹 No number!';
 
       /// When play wins
     } else if (guess === secretNumber) {
-      displayMessage = '🎉 Correct Number!';
-      displayNumber = secretNumber;
+      displayMessage.textContent = '🎉 Correct Number!';
+      displayNumber.textContent = secretNumber;
 
-      bodyBackgroundColor = '#60b347';
+      body.style.backgroundColor = '#60b347';
 
       document.querySelector('.number').style.width = '30rem';
 
       if (score > highscore) {
         highscore = score;
-        displayNumber = highscore;
+        displayHighscore.textContent = highscore;
       }
     } else if (guess !== secretNumber) {
       if (score > 1) {
-        displayMessage = guess > secretNumber ? '📈 Too High!' : '📉 Too Low!';
+        displayMessage.textContent =
+          guess > secretNumber ? '📈 Too High!' : '📉 Too Low!';
         score--;
-        displayScore = score;
+        displayScore.textContent = score;
       } else {
-        displayMessage = '☠️ You lost the game!';
-        displayScore = 0;
+        displayMessage.textContent = '☠️ You lost the game!';
+        displayScore.textContent = 0;
       }
     }
   });
@@ -57,13 +57,13 @@ function gameRule() {
 //////////// Again btn ///////////////////////////////////
 function resetGame() {
   document.querySelector('.again').addEventListener('click', function () {
-    bodyBackgroundColor = '#222';
+    body.style.backgroundColor = '#222';
     document.querySelector('.number').style.width = '15rem';
     score = 20;
     secretNumber = Math.trunc(Math.random() * 20) + 1;
-    displayMessage = 'Start guessing...';
-    displayScore = score;
-    displayNumber = '?';
+    displayMessage.textContent = 'Start guessing...';
+    displayScore.textContent = score;
+    displayNumber.textContent = '?';
     document.querySelector('.guess').value = '';
   });
 }
